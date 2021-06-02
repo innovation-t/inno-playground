@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Grid Random Size Test</title>
+    </head>
+    <body>
+        <div id="navs">
+            <button id="add_random">랜덤 추가</button>
+            <button id="add_1_1">1_1 추가</button>
+            <button id="add_1_2">1_2 추가</button>
+            <button id="add_2_1">2_1 추가</button>
+            <button id="add_2_2">2_2 추가</button>
+        </div>
+        <div id="view"></div>
+        <script>
+            const items = [[]];
+            const setPanel = ()=>{
+                let str = "";
+                for(let i=0; i < items.length; i++){
+                    for(let j=0; j<items[i].length; j++){
+                        str += items[i][j] + ' ';
+                    }
+                    str += '<br/>';
+                }
+                document.getElementById("view").innerHTML = str;
+            }
+            const getCurrentColumn = (currentRowDataArray)=>{
+                for(let i=0; i<currentRowDataArray.length; i++){
+                    if(currentRowDataArray[i] == 'xx'){
+                        return i;
+                    }
+                }
+                return -1;
+            }
+            const checkCondition = (w,h)=>{
+                // 현재 행 파악
+                let row_current = items.length-1;
+                
+                // 현재 열 파악
+                let col_current = getCurrentColumn(items[row_current]);
+                
+                // 현재 행이 전부 유효하면 다음행을 추가
+                if(col_current == -1){
+                    items.push(['xx','xx','xx']);
+                    row_current += 1;
+                }
+
+
+                // 넓이가 2인경우 - 2열이 동시에 공백이어야 함
+                // 이전 행 해당열 유효한 경우
+                    // 이전행 다음 열 유효 확인
+                // 이전 행 해당열 공백인 경우
+                    // 이전행 다음 열 공백 확인
+                
+                // 이전행 공백 탐색
+                items[row_current]
+ 
+                
+            }
+            const createItem = (w,h) => {
+            
+            }
+           
+            // add btn 1_1, 1_2, 2_1, 2_2
+            createBtn(w,h);
+        </script>
+    </body>
+</html>
