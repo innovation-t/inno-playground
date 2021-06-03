@@ -12,7 +12,9 @@
         </div>
         <div id="view"></div>
         <script>
-            const items = [[]];
+            const gridWidth = 3;
+            const emptyCoordinateArray = [];
+            const items = [];
             const setPanel = ()=>{
                 let str = "";
                 for(let i=0; i < items.length; i++){
@@ -23,6 +25,56 @@
                 }
                 document.getElementById("view").innerHTML = str;
             }
+            const addRow = () => {
+                let newRow = [];
+                for(let i=0; i<gridWidth; i++){
+                    newRow.push("xx");
+                }
+                items.push(newRow);
+            }
+
+            const addEmptyCoordinate = () => {
+                let newRowNumber = items.length-1;
+                for(let i=0; i<gridWidth; i++){
+                    emptyCoordinateArray.push([newRowNumber,i])
+                }
+            }
+            const checkEmptySpace = ()=>{
+                if(!emptyCoordinateArray.length){
+                    addRow();
+                    addEmptyCoordinate();
+                }
+            }
+
+            const checkSpaceSize = (w,h,cIdx) => {
+                let result = true;
+                let emptyX = emptyCoordinateArray[cIdx][0];
+                let emptyY = emptyCoordinateArray[cIdx][1];
+                
+                if((gridWidth - emptyX) < w){
+                    result = false;
+                }else{
+                    for(let i=0; i<w; i++){
+                        if(items[emptyX + i][emptyY] != "xx"){
+                            result = false;
+                            break;
+                        }else{
+                            for(let j=0; j<h; j++){
+                                if(items[emptyX + i][emptyY + j] != "xx"){
+                                    result = false;
+                                    break;
+                                }
+                            }
+                            if(!result) break;
+                        }
+                    }
+                    
+
+                }
+                
+                                
+            }
+
             const getCurrentColumn = (currentRowDataArray)=>{
                 for(let i=0; i<currentRowDataArray.length; i++){
                     if(currentRowDataArray[i] == 'xx'){
@@ -31,7 +83,9 @@
                 }
                 return -1;
             }
+
             const checkCondition = (w,h)=>{
+                
                 // 현재 행 파악
                 let row_current = items.length-1;
                 
@@ -44,8 +98,8 @@
                     row_current += 1;
                 }
 
-
                 // 넓이가 2인경우 - 2열이 동시에 공백이어야 함
+
                 // 이전 행 해당열 유효한 경우
                     // 이전행 다음 열 유효 확인
                 // 이전 행 해당열 공백인 경우
@@ -56,12 +110,14 @@
  
                 
             }
+
             const createItem = (w,h) => {
             
             }
            
             // add btn 1_1, 1_2, 2_1, 2_2
             createBtn(w,h);
+
         </script>
     </body>
 </html>
